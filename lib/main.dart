@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'core/const/color_constants.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
