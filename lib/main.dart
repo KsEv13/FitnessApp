@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/constants.dart';
+import 'package:sport_app/widgets/bottom_bar.dart';
 import 'package:sport_app/widgets/pages/daily_plan.dart';
 import 'package:sport_app/widgets/pages/profile.dart';
 import 'package:sport_app/widgets/pages/training_calendar.dart';
@@ -15,16 +16,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fitness',
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            backgroundColor: kAppBarColor,
-          ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: kAppBarColor,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
-          )),
+        appBarTheme: AppBarTheme(
+          backgroundColor: kAppBarColor,
+        ),
+      ),
       routes: {
-        '/main': (contex) => MainScreen(),
+        '/main': (context) => MainScreen(),
       },
       initialRoute: '/main',
     );
@@ -32,16 +29,19 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
   int _widgetIndex = 0;
-  static List<Widget> _widgetObjects = <Widget>[
+
+  static final List<Widget> _widgetObjects = <Widget>[
     Profile(),
+    DailyPlan(),
     TrainingCalendar(),
-    DailyPlan()
   ];
 
   void onSelectTab(int index) {
@@ -60,23 +60,23 @@ class _MainScreenState extends State<MainScreen> {
         body: Center(
           child: _widgetObjects[_widgetIndex],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _widgetIndex,
-          items: const [
-            BottomNavigationBarItem(
+        bottomNavigationBar: CustomBottomNavigationBar(
+          onItemSelected: (index) => onSelectTab(index),
+          selectedIndex: _widgetIndex,
+          items: [
+            CustomBottomBarItem(
               icon: Icon(Icons.person),
-              label: 'Profile',
+              title: Text('Profile'),
             ),
-            BottomNavigationBarItem(
+            CustomBottomBarItem(
               icon: Icon(Icons.alarm),
-              label: 'Today',
+              title: Text('Today'),
             ),
-            BottomNavigationBarItem(
+            CustomBottomBarItem(
               icon: Icon(Icons.calendar_month),
-              label: 'Calendar',
+              title: Text('Calendar'),
             ),
           ],
-          onTap: (index) => onSelectTab(index),
         ));
   }
 }

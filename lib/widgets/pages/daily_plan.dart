@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 class DailyPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FitnessApp'),
-      ),
-    );
+    return Scaffold(body: Center(child: Text('Today')));
   }
 }
